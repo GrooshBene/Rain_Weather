@@ -2,23 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80000000"
+    android:background="#ffffff"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="grooshbene.weather.MainPage">
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_weight="4">
-
-
+        android:layout_weight="3.5"
+        android:background="#9e9e9e"
+        android:weightSum="10"
+        android:orientation="vertical"
+        android:paddingLeft="20dp">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
         <TextView
-            android:text="dd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:id="@+id/date"/>
-        </FrameLayout>
-
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1.5"
+            android:text="현재 기온"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="4"
+            android:text="30도"
+            android:textSize="75dp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
 </LinearLayout>
