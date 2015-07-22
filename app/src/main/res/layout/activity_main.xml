@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    android:weightSum="100">
+<Space
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_weight="10"/>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_weight="60">
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:src="@drawable/logo"/>
+      </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="10"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="10"
+        android:id="@+id/main">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="시작하시려면 터치해주세요."
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#90ffffff"/>
+        </LinearLayout>
+</LinearLayout>
