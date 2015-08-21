@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/bg"
+    android:background="#000000"
     android:orientation="vertical"
     android:weightSum="100">
 <Space
