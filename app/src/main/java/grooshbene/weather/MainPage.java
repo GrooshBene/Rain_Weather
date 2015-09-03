@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,11 +30,11 @@ import java.util.Calendar;
 
 public class MainPage extends Activity {
     private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
+    private Button mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
-    private ListView mDrawerList;
+    private LinearLayout mDrawerList;
     TextView currentTemp;
     String[] asdf;
 
@@ -43,7 +46,8 @@ public class MainPage extends Activity {
         TextView date = (TextView) findViewById(R.id.date);
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerToggle = (Button)findViewById(R.id.drawerToggle);
+        mDrawerList = (LinearLayout) findViewById(R.id.drawer);
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         currentTemp = (TextView) findViewById(R.id.current_temp);
@@ -81,6 +85,12 @@ public class MainPage extends Activity {
 
         Thread thread = new Thread(task);
         thread.start();
+        mDrawerToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
 
     }
