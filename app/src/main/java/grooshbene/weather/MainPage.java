@@ -1,30 +1,26 @@
 package grooshbene.weather;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Calendar;
 
 
@@ -35,14 +31,20 @@ public class MainPage extends Activity {
     private CharSequence mTitle;
     private String[] mPlanetTitles;
     private LinearLayout mDrawerList;
-    TextView currentTemp;
-    String[] asdf;
+    String[] max;
+    TextView maxTemp;
+    TextView minTemp;
+    String[] min;
+    int maxInt;
+    int minInt;
+    Context applicationContext;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        applicationContext = this;
         TextView date = (TextView) findViewById(R.id.date);
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -50,7 +52,8 @@ public class MainPage extends Activity {
         mDrawerList = (LinearLayout) findViewById(R.id.drawer);
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        currentTemp = (TextView) findViewById(R.id.current_temp);
+        maxTemp = (TextView)findViewById(R.id.maxTemp);
+        minTemp = (TextView)findViewById(R.id.minTemp);
         //id로 텍스트 불러오기
         Calendar calendar = Calendar.getInstance();
         //calendar 선언
@@ -58,7 +61,7 @@ public class MainPage extends Activity {
         //달
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int year = calendar.get(Calendar.YEAR);
-        date.setText(year+"년"+month + "월" + day + "일");
+        date.setText(year + "년" + month + "월" + day + "일");
         Runnable task = new Runnable() {
             @Override
             public void run() {
@@ -70,16 +73,34 @@ public class MainPage extends Activity {
                 }
                 Elements max_current = doc.select("location data tmx");
                 Elements min_current = doc.select("location data tmn");
-                asdf = new String[max_current.size()];
+                max = new String[max_current.size()];
+                min = new String[min_current.size()];
                 for(int i=0;i<max_current.size();i++) {
-                    asdf[i] = max_current.get(i).text().toString();
+                    max[i] = max_current.get(i).text().toString();
+                    min[i] = min_current.get(i).text().toString();
                 }
+                maxInt = Integer.parseInt(max[0]);
+                minInt = Integer.parseInt(min[0]);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        currentTemp.setText("섭씨 "+asdf[0]+"도");
+//                        currentTemp.setText("섭씨 "+max[0]+"도");
+                        maxTemp.setText(max[0]+"도");
+                        minTemp.setText(min[0]+"도");
+                        NotificationCompat.Builder mBuilder =
+                                new NotificationCompat.Builder(applicationContext)
+                                        .setSmallIcon(R.drawable.ic_launcher)
+                                        .setContentTitle("현재온도")
+                                        .setContentText(((maxInt+minInt)/2)+"도");
+                        int mNotificationId = 001;
+                        NotificationManager mNotifyMgr = (NotificationManager)getSystemService(applicationContext.NOTIFICATION_SERVICE);
+                        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+                        PendingIntent intent = PendingIntent.getActivity(
+                                applicationContext, 0,
+                                new Intent(applicationContext, MainActivity.class), 0);
                     }
                 });
+
             }
         };
 
@@ -91,6 +112,8 @@ public class MainPage extends Activity {
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
+
 
 
     }

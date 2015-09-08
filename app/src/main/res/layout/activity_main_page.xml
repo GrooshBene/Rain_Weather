@@ -60,14 +60,53 @@
                         android:text="현재 기온"
                         android:textSize="26dp"
                         android:textColor="#f5f5f5" />
-                    <TextView
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:textSize="55dp"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:textColor="#f5f5f5"-->
+                        <!--android:id="@+id/current_temp"/>-->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_weight="5"
-                        android:textSize="55dp"
-                        android:gravity="center_vertical"
-                        android:textColor="#f5f5f5"
-                        android:id="@+id/current_temp"/>
+                        android:layout_weight="4"
+                        android:weightSum="10"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.5"
+                            android:text="최고"
+                            android:gravity="bottom|right"
+                            android:textColor="#ff5252"
+                            android:textSize="23dp"/>
+                        <TextView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:id="@+id/maxTemp"
+                            android:gravity="center|bottom"
+                            android:textSize="40dp"
+                            android:textColor="#f5f5f5"/>
+                        <TextView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.5"
+                            android:text="최저"
+                            android:gravity="bottom|right"
+                            android:textColor="#42a5f5"
+                            android:textSize="23dp"/>
+                        <TextView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:id="@+id/minTemp"
+                            android:gravity="center|bottom"
+                            android:textSize="40dp"
+                            android:textColor="#f5f5f5"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
